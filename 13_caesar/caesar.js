@@ -1,41 +1,21 @@
-const caesar = function (text, shift) {
-  textArray = text.split("");
-  enc = [];
+const caesar = function (str, shift) {
+  strArr = str.split("");
+  shift = shift % 26;
 
-  for (char of textArray) {
-    uni = char.charCodeAt();
-    if (!/[.,?!\s]/.test(char)) {
-      nUni = uni + shift;
-      
-      condition1 = uni > 64 && uni < 91 && (nUni < 65 || nUni > 90) 
+  for (let i = 0; i < strArr.length; i++) {
+    if (/[\w]/.test(strArr[i])) {
+      code = strArr[i].charCodeAt();
 
-      if (condition1) {
-        while (nUni > 90) {
-          nUni -= 26;
-        }
-
-        while (nUni < 65) {
-          nUni += 26;
-        }
+      if (strArr[i] >= "a") {
+        code = ((code + shift - 97 + 26) % 26) + 97;
+      } else {
+        code = ((code + shift - 65 + 26) % 26) + 65;
       }
 
-      condition2 = uni > 96 && uni < 123 && (nUni < 97 || nUni > 122) 
-
-      if (condition2) {
-        while (nUni > 122) {
-          nUni -= 26;
-        }
-
-        while (nUni < 97) {
-          nUni += 26;
-        }
-      }
-    } else {nUni = uni}
-
-    enc.push(String.fromCharCode(nUni));
+      strArr[i] = String.fromCharCode(code);
+    }
   }
-
-  return enc.join("");
+  return strArr.join("");
 };
 
 // Do not edit below this line
